@@ -15,8 +15,8 @@ vlc 'http://192.168.1.23/stream.cgi?input=12&output=1'
 jne
 streamit muodostuu /tmp/hls/<numero> -hakemistoon, josta nginx niita palvelee eteenpain.
 
-/etc/kanavat.list rakenne
-id|nimi|soittokomento
+/etc/kanavat.list:
+id|name|ffmpeg-command
 id on se tunnus, jolla kanavaa pyydetaan.
 nimi on vapaavalintainen nimi, jota ei nyt kayteta mihinkaan mutta sen on listalla helpottamaan muokaamista
 soittokomento on se varsinainen ffmpegin suorittama komento. ffmpeg suorittaa sen muodossa:
