@@ -1,7 +1,7 @@
 # raspi_encode_e2
-Transcode from enigma2 to HLS-stream with Raspberry Pi
+Transcode live stream from enigma2 to HLS-stream with Raspberry Pi
 
-First install Raspbian Buster (lite) and then:
+First install Raspbian Buster (lite) and then this:
 sudo ./asenna_asenna_fserver_*
 
 asennusohjelma lataa tarvittavat paketit ja jyraa surutta yli nginxin yms asetukset, joten kokeile tata omalla muistikortillaan (tai pura ohjelmat kasin)
