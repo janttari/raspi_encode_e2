@@ -1,0 +1,47 @@
+#!/bin/bash
+#luo tar-paketin asennettavaksi payloadiksi tassa hakemistossa olevan "tiedostot" listan mukaan.
+#tiedostossa "paketit" on apt:lla asennettavat paketit
+#tiedostossa "prescript" on ennen asennusta suoritettava komento (yksi rivi) (valinnainen)
+#tiedostossa "postscript" on asennuksen jalkeen suoritettava komento (yksi rivi) (valinnainen)
+#ks esim projekti  /tiedostot/yandex/turva/raspi_ffmpeg_streaming_server_hls_kanavat_0_9
+#
+#luotu asennin purkaa sitten suoritettaessa itsensa / juureen
+#
+
+hakemisto=$(basename $(pwd))
+aika=$(date +%y%m%d-%H%M%S)
+paketinnimi="asenna_"$hakemisto"_"$aika
+sijainti=$(pwd)
+tar -cvf /tmp/$paketinnimi.tar -T $sijainti/tiedostot
+
+
+
+# Append uuencoded data.
+sed \
+    -e 's/uuencode=./uuencode=1/' \
+    -e 's/binary=./binary=0/' \
+    template_asennin >$paketinnimi
+echo "PAYLOAD:" >> $paketinnimi
+cat /tmp/$paketinnimi.tar | uuencode - >>$paketinnimi
+chmod a+x $paketinnimi
+
+
+#Sitten viela kirjoitetaan mita paketteja pitaa asentaa:
+paketit=$(cat paketit)
+sed -i "8i\sudo apt update" $paketinnimi
+sed -i "9i\sudo apt install -y $paketit" $paketinnimi #9 riville apt install
+
+#Katsotaan pitaako asentimelle luoda post script:
+if [ -f "$sijainti/postscript" ]; then
+    ps=$(cat $sijainti/postscript)
+    sed -i "18i\ $ps" $paketinnimi
+
+fi
+
+
+#Katsotaan pitaako asentimelle luoda pre script:
+if [ -f "$sijainti/prescript" ]; then
+    pres=$(cat $sijainti/prescript)
+    sed -i "8i\ $pres" $paketinnimi
+fi
+

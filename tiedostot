@@ -1,0 +1,10 @@
+/etc/rc.local
+/www/stream.cgi
+/www/index.py
+/etc/nginx/sites-available/default
+/etc/kanavat.list
+/usr/bin/autoexec
+/usr/bin/fstriimaa
+/usr/bin/fsvalvo
+/home/pi/asenna_fserver
+/etc/environment
