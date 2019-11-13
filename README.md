@@ -1,4 +1,4 @@
-#raspi_encode_e2
+# raspi_encode_e2
 Transcode from enigma2 to HLS-stream with Raspberry Pi
 
 First install Raspbian Buster (lite) and then:
